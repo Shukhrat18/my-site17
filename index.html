@@ -1271,12 +1271,12 @@
     <!-- Китобхонаи SheetJS барои экспорт ба Excel -->
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
     <!-- Supabase JS (for database) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     
     <script>
         // Системаи Қайдҳозирбуд - тамоми логика дар як файл
-        window App = {
+        window.App = {
             currentPage: 'start',
             currentEmployee: null,
             selectedEmployeeForLogin: null,
@@ -1372,13 +1372,18 @@
                 if (!employeePagePassword) {
                     localStorage.setItem('employeePagePassword', 'emp1234');
                 }
-            },
+
+                // Агар рӯйхати кормандон холӣ бошад — намуна илова мекунем (барои санҷиш)
+                const employees = this.getEmployees();
+                if (!employees || employees.length === 0) {
+                    this.saveEmployees([
+                        { id: 1, firstName: "Аҳмад", lastName: "Аҳмадов", password: "1234" },
                         { id: 2, firstName: "Саид", lastName: "Саидов", password: "1234" },
                         { id: 3, firstName: "Муҳаммад", lastName: "Муҳаммадов", password: "1234" }
                     ]);
                 }
             },
-            
+
             setupPasswordToggles: function() {
                 // Тугмаи нишон додани парол дар модалии корманд
                 const togglePasswordBtn = document.getElementById('toggle-password');
